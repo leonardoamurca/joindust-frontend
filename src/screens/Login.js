@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { useAuth } from '../context/auth';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+  const auth = useAuth();
+
   const onTryLogin = () => {
     if (email && password) {
       setLoading(true);
+      auth.login();
     } else {
       setLoading(false);
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function getUser() {
+function getUserClient() {
   const TOKEN_KEY = '$TOKEN';
   const token = window.localStorage.getItem(TOKEN_KEY);
 
@@ -27,7 +27,7 @@ function AuthProvider(props) {
   useEffect(() => {
     async function getCurrentUser() {
       try {
-        const res = await getUser();
+        const res = await getUserClient();
         if (!res) {
           setData({ user: null });
         }
@@ -44,7 +44,14 @@ function AuthProvider(props) {
     return <FullPageSpinner />;
   }
 
-  const login = () => {}; // make a login request
+  const login = async () => {
+    const res = await axios.post('http://localhost:8080/api/auth/signin', {
+      usernameOrEmail: 'lucas@gmail.com',
+      password: 'lucas123',
+    });
+
+    setData({ user: res.data });
+  }; // make a login request
   const register = () => {}; // register the user
   const logout = () => {}; // clear the token in localStorage and the user data
 
