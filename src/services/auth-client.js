@@ -1,14 +1,6 @@
-import axios from 'axios';
 import client from './api-client';
 
 const localStorageKey = '$TOKEN';
-
-// async function handleUserResponse({ data: { accessToken } }) {
-//   window.localStorage.setItem(localStorageKey, accessToken);
-//   const { data } = await getUser();
-
-//   return data;
-// }
 
 function handleUserResponse({ accessToken, ...rest }) {
   window.localStorage.setItem(localStorageKey, accessToken);
@@ -35,6 +27,7 @@ function login(usernameOrEmail, password) {
 
 function logout() {
   window.localStorage.removeItem(localStorageKey);
+
   return Promise.resolve();
 }
 
