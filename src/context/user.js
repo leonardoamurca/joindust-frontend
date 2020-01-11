@@ -8,8 +8,6 @@ function UserProvider(props) {
     data: { user },
   } = useAuth();
 
-  console.log(user);
-
   return <UserContext.Provider value={user} {...props} />;
 }
 

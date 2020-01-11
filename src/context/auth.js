@@ -2,8 +2,7 @@ import React from 'react';
 import { useAsync } from 'react-async';
 import * as authClient from '../services/auth-client';
 import { bootstrapAppData } from '../utils/bootstrapAppData';
-
-export const FullPageSpinner = () => <h1>Loading...</h1>;
+import FullPageSpinner from '../components/FullPageSpinner';
 
 const AuthContext = React.createContext();
 

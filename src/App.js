@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUser } from './context/user';
-import { FullPageSpinner } from './context/auth';
+import FullPageSpinner from './components/FullPageSpinner';
 
 const AuthenticatedApp = React.lazy(() => import('./authenticated-app'));
 const UnauthenticatedApp = React.lazy(() => import('./unauthenticated-app'));
