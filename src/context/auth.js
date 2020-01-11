@@ -14,10 +14,14 @@ function AuthProvider(props) {
   }, []);
 
   const login = (usernameOrEmail, password) =>
-    authClient.login(usernameOrEmail, password).then(user => {
-      console.log('user', user);
-      setData({ user });
-    });
+    authClient
+      .login(usernameOrEmail, password)
+      .then(user => {
+        setData({ user });
+      })
+      .catch(err => {
+        setError(err.response.data);
+      });
 
   const logout = () =>
     authClient.logout().then(res => {

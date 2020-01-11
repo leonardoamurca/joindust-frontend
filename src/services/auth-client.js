@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const localStorageKey = '$TOKEN';
 
-async function handleUserResponse({ data: { accessToken, ...rest } }) {
-  console.log({ ...rest });
+async function handleUserResponse({ data: { accessToken } }) {
   window.localStorage.setItem(localStorageKey, accessToken);
   const { data } = await getUser();
 
@@ -17,11 +16,16 @@ function getUser() {
     return Promise.resolve(null);
   }
 
-  return axios.get('http://localhost:8080/api/users/me', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return axios
+    .get('http://localhost:8080/api/users/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .catch(err => {
+      logout();
+      return Promise.reject(err);
+    });
 }
 
 function login(usernameOrEmail, password) {
@@ -32,8 +36,8 @@ function login(usernameOrEmail, password) {
     })
     .then(handleUserResponse)
     .catch(err => {
-      console.log('err', err);
-      return err;
+      logout();
+      return Promise.reject(err);
     });
 }
 

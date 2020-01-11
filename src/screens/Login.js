@@ -7,11 +7,9 @@ import { useAuth } from '../context/auth';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const auth = useAuth();
 
   const isSubmitable = email && password;
-
-  const auth = useAuth();
 
   const onTryLogin = () => {
     isSubmitable && auth.login(email, password);
@@ -32,7 +30,7 @@ function Login() {
         type="password"
       />
       <Button onClick={onTryLogin} label="Entrar" />
-      {auth.error && <span>{auth.error}</span>}
+      {auth.error && <div>{auth.error.message}</div>}
     </div>
   );
 }

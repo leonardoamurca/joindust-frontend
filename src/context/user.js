@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from './auth';
+import axios from 'axios';
 
 const UserContext = React.createContext();
 
@@ -7,6 +8,7 @@ function UserProvider(props) {
   const {
     data: { user },
   } = useAuth();
+
   return <UserContext.Provider value={user} {...props} />;
 }
 
