@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { useAuth } from '../context/auth';
+import useCallbackStatus from '../utils/useCallbackStatus';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const { isPending, isRejected, error, run } = useCallbackStatus();
+
+  const isSubmitable = email && password;
 
   const onTryLogin = () => {
-    if (email && password) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
+    isSubmitable && run(login(email, password));
   };
 
   return (
@@ -30,8 +31,11 @@ function Login() {
         value={password}
         type="password"
       />
-      <span data-testid="loading">{isLoading ? 'Loading...' : ''}</span>
       <Button onClick={onTryLogin} label="Entrar" />
+      {isPending && <div>Loading...</div>}
+      {isRejected && (
+        <div css={{ color: 'red' }}>{error ? error.message : null}</div>
+      )}
     </div>
   );
 }

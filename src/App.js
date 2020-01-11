@@ -1,9 +1,18 @@
 import React from 'react';
-import Login from './screens/Login';
-import Routes from './routes/Routes';
+import { useUser } from './context/user';
+import FullPageSpinner from './components/FullPageSpinner';
+
+const AuthenticatedApp = React.lazy(() => import('./authenticated-app'));
+const UnauthenticatedApp = React.lazy(() => import('./unauthenticated-app'));
 
 function App() {
-  return <Routes />;
+  const user = useUser();
+
+  return (
+    <React.Suspense fallback={<FullPageSpinner />}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </React.Suspense>
+  );
 }
 
 export default App;
