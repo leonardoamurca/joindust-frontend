@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAsync } from 'react-async';
+
 import * as authClient from '../services/auth-client';
 import { bootstrapAppData } from '../utils/bootstrapAppData';
 import FullPageSpinner from '../components/FullPageSpinner';
@@ -56,9 +57,7 @@ function AuthProvider(props) {
 
 function useAuth() {
   const context = React.useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error(`useAuth must be used within a AuthProvider`);
-  }
+
   return context;
 }
 
