@@ -1,43 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useAsync } from 'react-async';
 import * as authClient from '../services/auth-client';
+import { bootstrapAppData } from '../utils/bootstrapAppData';
 
 export const FullPageSpinner = () => <h1>Loading...</h1>;
 
 const AuthContext = React.createContext();
 
 function AuthProvider(props) {
-  const [data, setData] = useState({ user: null });
-  const [error, setError] = useState(null);
+  const [firstAttemptFinished, setFirstAttemptFinished] = React.useState(false);
+  const {
+    data = { user: null, collections: [] },
+    error,
+    isRejected,
+    isPending,
+    isSettled,
+    reload,
+  } = useAsync({
+    promiseFn: bootstrapAppData,
+  });
 
-  useEffect(() => {
-    authClient.getUser().then(res => res && setData({ user: res.data }));
-  }, []);
+  React.useLayoutEffect(() => {
+    if (isSettled) {
+      setFirstAttemptFinished(true);
+    }
+  }, [isSettled]);
+
+  if (!firstAttemptFinished) {
+    if (isPending) {
+      return <FullPageSpinner />;
+    }
+    if (isRejected) {
+      return (
+        <div css={{ color: 'red' }}>
+          <p>Uh oh... There's a problem. Try refreshing the app.</p>
+          <pre>{error.message}</pre>
+        </div>
+      );
+    }
+  }
 
   const login = (usernameOrEmail, password) =>
-    authClient
-      .login(usernameOrEmail, password)
-      .then(user => {
-        setData({ user });
-      })
-      .catch(err => {
-        setError(err.response.data);
-      });
+    authClient.login(usernameOrEmail, password).then(reload);
 
-  const logout = () =>
-    authClient.logout().then(res => {
-      setData({ user: null });
-    });
+  const logout = () => authClient.logout().then(reload);
 
   const register = () => {};
 
   return (
     <AuthContext.Provider
-      value={{ data, login, logout, register, error }}
+      value={{ data, login, logout, register }}
       {...props}
     />
   );
 }
 
-const useAuth = () => React.useContext(AuthContext);
+function useAuth() {
+  const context = React.useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error(`useAuth must be used within a AuthProvider`);
+  }
+  return context;
+}
 
 export { AuthProvider, useAuth };

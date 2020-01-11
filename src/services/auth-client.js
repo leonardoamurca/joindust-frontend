@@ -1,44 +1,36 @@
 import axios from 'axios';
+import client from './api-client';
 
 const localStorageKey = '$TOKEN';
 
-async function handleUserResponse({ data: { accessToken } }) {
-  window.localStorage.setItem(localStorageKey, accessToken);
-  const { data } = await getUser();
+// async function handleUserResponse({ data: { accessToken } }) {
+//   window.localStorage.setItem(localStorageKey, accessToken);
+//   const { data } = await getUser();
 
-  return data;
+//   return data;
+// }
+
+function handleUserResponse({ accessToken, ...rest }) {
+  window.localStorage.setItem(localStorageKey, accessToken);
+
+  return { ...rest };
 }
 
 function getUser() {
-  const token = window.localStorage.getItem(localStorageKey);
-
+  const token = getToken();
   if (!token) {
     return Promise.resolve(null);
   }
-
-  return axios
-    .get('http://localhost:8080/api/users/me', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .catch(err => {
-      logout();
-      return Promise.reject(err);
-    });
+  return client('users/me').catch(error => {
+    logout();
+    return Promise.reject(error);
+  });
 }
 
 function login(usernameOrEmail, password) {
-  return axios
-    .post('http://localhost:8080/api/auth/signin', {
-      usernameOrEmail,
-      password,
-    })
-    .then(handleUserResponse)
-    .catch(err => {
-      logout();
-      return Promise.reject(err);
-    });
+  return client('auth/signin', { body: { usernameOrEmail, password } }).then(
+    handleUserResponse
+  );
 }
 
 function logout() {
