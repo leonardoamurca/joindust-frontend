@@ -1,9 +1,3 @@
-const process = {
-  env: {
-    REACT_APP_API_URL: 'http://localhost:8080/api',
-  },
-};
-
 function client(endpoint, { body, ...customConfig } = {}) {
   const token = window.localStorage.getItem('$TOKEN');
   const headers = { 'content-type': 'application/json' };
