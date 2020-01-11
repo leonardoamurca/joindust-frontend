@@ -1,63 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-function getUserClient() {
-  const TOKEN_KEY = '$TOKEN';
-  const token = window.localStorage.getItem(TOKEN_KEY);
-
-  if (!token) {
-    return Promise.resolve(null);
-  }
-
-  return axios.get('http://localhost:8080/api/users/me', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-}
+import * as authClient from '../services/auth-client';
 
 export const FullPageSpinner = () => <h1>Loading...</h1>;
 
 const AuthContext = React.createContext();
 
 function AuthProvider(props) {
-  const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
   const [data, setData] = useState({ user: null });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getCurrentUser() {
-      try {
-        const res = await getUserClient();
-        if (!res) {
-          setData({ user: null });
-        }
-        console.log(res);
-      } catch (error) {
-        throw new Error('Erro!');
-      }
-    }
-
-    getCurrentUser();
+    authClient.getUser().then(res => res && setData({ user: res.data }));
   }, []);
 
-  if (firstAttemptFinished) {
-    return <FullPageSpinner />;
-  }
-
-  const login = async () => {
-    const res = await axios.post('http://localhost:8080/api/auth/signin', {
-      usernameOrEmail: 'lucas@gmail.com',
-      password: 'lucas123',
+  const login = (usernameOrEmail, password) =>
+    authClient.login(usernameOrEmail, password).then(user => {
+      console.log('user', user);
+      setData({ user });
     });
 
-    setData({ user: res.data });
-  }; // make a login request
-  const register = () => {}; // register the user
-  const logout = () => {}; // clear the token in localStorage and the user data
+  const logout = () =>
+    authClient.logout().then(res => {
+      setData({ user: null });
+    });
+
+  const register = () => {};
 
   return (
     <AuthContext.Provider
-      value={{ data, login, logout, register }}
+      value={{ data, login, logout, register, error }}
       {...props}
     />
   );

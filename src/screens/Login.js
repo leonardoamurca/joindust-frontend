@@ -7,17 +7,14 @@ import { useAuth } from '../context/auth';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const isSubmitable = email && password;
 
   const auth = useAuth();
 
   const onTryLogin = () => {
-    if (email && password) {
-      setLoading(true);
-      auth.login();
-    } else {
-      setLoading(false);
-    }
+    isSubmitable && auth.login(email, password);
   };
 
   return (
@@ -34,8 +31,8 @@ function Login() {
         value={password}
         type="password"
       />
-      <span data-testid="loading">{isLoading ? 'Loading...' : ''}</span>
       <Button onClick={onTryLogin} label="Entrar" />
+      {auth.error && <span>{auth.error}</span>}
     </div>
   );
 }
