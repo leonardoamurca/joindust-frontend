@@ -1,8 +1,4 @@
-const process = {
-  env: {
-    REACT_APP_API_URL: 'http://localhost:8080/api',
-  },
-};
+import { getBaseURL } from '../utils/env';
 
 function client(endpoint, { body, ...customConfig } = {}) {
   const token = window.localStorage.getItem('$TOKEN');
@@ -23,7 +19,7 @@ function client(endpoint, { body, ...customConfig } = {}) {
   }
 
   return window
-    .fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, config)
+    .fetch(`${getBaseURL()}/${endpoint}`, config)
     .then(r => r.json());
 }
 
