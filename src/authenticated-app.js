@@ -5,11 +5,12 @@ import { useAuth } from './context/auth';
 
 import Home from './screens/Home';
 import About from './screens/About';
-import { getAppVersion } from './utils/env';
 
 function AuthenticatedApp() {
   const auth = useAuth();
   const user = useUser();
+
+  console.log(user);
 
   function RedirectHome() {
     return <Redirect noThrow to="/home" />;

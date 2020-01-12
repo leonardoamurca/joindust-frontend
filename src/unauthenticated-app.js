@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAuth } from './context/auth';
 import Login from './screens/Login';
 
 function UnauthenticatedApp() {
