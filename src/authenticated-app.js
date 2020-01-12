@@ -12,7 +12,7 @@ function AuthenticatedApp() {
   const user = useUser();
 
   function RedirectHome() {
-    return <Redirect to="/home" />;
+    return <Redirect noThrow to="/home" />;
   }
 
   function NotFound() {

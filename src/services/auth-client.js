@@ -2,10 +2,13 @@ import client from './api-client';
 
 const localStorageKey = '$TOKEN';
 
-function handleUserResponse({ accessToken, ...rest }) {
+function handleUserResponse({ accessToken, error, ...rest }) {
   window.localStorage.setItem(localStorageKey, accessToken);
-
-  return { ...rest };
+  if (error) {
+    logout();
+    return Promise.reject(rest);
+  }
+  return rest;
 }
 
 function getUser() {
