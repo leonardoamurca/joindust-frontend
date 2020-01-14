@@ -4,6 +4,8 @@ import { Input, Icon, Button } from 'antd';
 import { useAuth } from '../context/auth';
 import useCallbackStatus from '../utils/useCallbackStatus';
 
+import { Container, FormContainer } from './LoginStyles';
+
 function Login() {
   const { login } = useAuth();
   const { isPending, isRejected, error, run } = useCallbackStatus();
@@ -17,30 +19,56 @@ function Login() {
   };
 
   return (
-    <div>
-      <Input
-        placeholder="Digite seu e-mail"
-        onChange={e => setEmail(e.target.value)}
-        value={email}
-        type="email"
-        prefix={<Icon type="mail" />}
-      />
+    <Container>
+      <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>LOGO</h1>
+      <FormContainer>
+        <Input
+          size="large"
+          placeholder="Digite seu e-mail"
+          onChange={e => setEmail(e.target.value)}
+          value={email}
+          type="email"
+          prefix={<Icon type="mail" />}
+        />
 
-      <Input.Password
-        placeholder="Digite sua senha"
-        onChange={e => setPassword(e.target.value)}
-        value={password}
-        type="password"
-        prefix={<Icon type="lock" />}
-      />
+        <Input.Password
+          size="large"
+          placeholder="Digite sua senha"
+          onChange={e => setPassword(e.target.value)}
+          value={password}
+          type="password"
+          prefix={<Icon type="lock" />}
+          onPressEnter={onTryLogin}
+        />
+        <Button
+          disabled={!isSubmitable}
+          block
+          size="large"
+          loading={isPending}
+          type="primary"
+          onClick={onTryLogin}
+        >
+          Entrar
+        </Button>
 
-      <Button loading={isPending} type="primary" onClick={onTryLogin}>
-        Entrar
-      </Button>
-      {isRejected && (
-        <div css={{ color: 'red' }}>{error ? error.message : null}</div>
-      )}
-    </div>
+        <div>
+          Não possui conta? <a href="/register">Cadastre-se</a> agora!
+        </div>
+
+        {isRejected && (
+          <div
+            style={{
+              color: 'red',
+              position: 'absolute',
+              bottom: '15px',
+              fontSize: '17px',
+            }}
+          >
+            {error ? error.message : null}
+          </div>
+        )}
+      </FormContainer>
+    </Container>
   );
 }
 

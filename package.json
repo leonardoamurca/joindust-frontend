@@ -10,11 +10,12 @@
     "react": "^16.12.0",
     "react-async": "^10.0.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "styled-components": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:dev": "env-cmd -f .env.development npm run start ",
+    "start:dev": "env-cmd -f .env.development npm run start",
     "start:prod": "env-cmd -f .env.production npm run start ",
     "build": "react-scripts  build",
     "test": "react-scripts test",
