@@ -1,7 +1,13 @@
 import React from 'react';
+import { Container } from './FullPageSpinnerStyles';
+import { Spin } from 'antd';
 
 function FullPageSpinner() {
-  return <h1>Loading...</h1>;
+  return (
+    <Container>
+      <Spin size="large" />
+    </Container>
+  );
 }
 
 export default FullPageSpinner;
