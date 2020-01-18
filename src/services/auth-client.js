@@ -11,9 +11,16 @@ function handleUserResponse({ accessToken, error, ...rest }) {
   return rest;
 }
 
-function handleRegisterUser({ success, message, ...rest }) {
+function handleRegisterUser({
+  success,
+  message,
+  errors = null,
+  error = null,
+  field = null,
+  ...rest
+}) {
   if (!success) {
-    return Promise.reject({ success, message });
+    return Promise.reject({ success, message, errors, error, field });
   }
 
   return { success, message };
