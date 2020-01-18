@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { Redirect } from '@reach/router';
 import {
   Container,
   InputContainer,
   InputLabel,
   ButtonContainer,
 } from './RegisterStyles';
-import { Input, Select, Button } from 'antd';
+import { Input, Select, Button, Modal } from 'antd';
 import { ROLES } from '../utils/constants';
 import { useAuth } from '../context/auth';
 import useCallbackStatus from '../utils/useCallbackStatus';
+import ErrorFeedback from '../components/ErrorFeedback';
 
 const { Option } = Select;
 
@@ -33,7 +35,7 @@ function Register() {
     roleId: 1,
   });
 
-  const onChange = e => {
+  const onChangeInput = e => {
     const name = e.target.name;
     const value = e.target.value;
 
@@ -48,6 +50,12 @@ function Register() {
     run(register(form));
   };
 
+  const successFeedback = message => {
+    Modal.success({
+      content: message,
+    });
+  };
+
   return (
     <Container>
       {/*TODO: Put real Register logo instead of the h1 below*/}
@@ -57,7 +65,7 @@ function Register() {
         <Input
           value={form.corporateName}
           name="corporateName"
-          onChange={onChange}
+          onChange={onChangeInput}
           size="large"
           placeholder="Digite o nome da sua empresa"
         />
@@ -68,7 +76,7 @@ function Register() {
         <Input
           value={form.email}
           name="email"
-          onChange={onChange}
+          onChange={onChangeInput}
           size="large"
           placeholder="Digite seu e-mail"
         />
@@ -79,7 +87,7 @@ function Register() {
         <Input
           value={form.username}
           name="username"
-          onChange={onChange}
+          onChange={onChangeInput}
           size="large"
           placeholder="Digite um nome para seu usuário "
         />
@@ -89,7 +97,7 @@ function Register() {
         <Input.Password
           value={form.password}
           name="password"
-          onChange={onChange}
+          onChange={onChangeInput}
           size="large"
           placeholder="Digite sua senha"
           type="password"
@@ -100,7 +108,7 @@ function Register() {
         <Input
           value={form.cnpj}
           name="cnpj"
-          onChange={onChange}
+          onChange={onChangeInput}
           maxLength={14}
           size="large"
           placeholder="Ex: 12345678987654"
@@ -112,7 +120,7 @@ function Register() {
         <Input
           value={form.phone}
           name="phone"
-          onChange={onChange}
+          onChange={onChangeInput}
           size="large"
           maxLength={9}
           placeholder="Ex: 994736281"
@@ -145,35 +153,20 @@ function Register() {
           Cadastrar
         </Button>
       </ButtonContainer>
+
+      <div style={{ marginBottom: '20px' }}>
+        Já possui uma conta? Faça <a href="/login">Login</a> agora!
+      </div>
+
       {isRejected && (
-        <div
-          style={{
-            color: 'red',
-            bottom: '15px',
-            fontSize: '17px',
-            width: '80%',
-            textAlign: 'center',
-            marginBottom: '20px',
-          }}
-        >
-          {error && error.message}
-        </div>
+        <ErrorFeedback
+          message={error && error.message}
+          errorType={error && error.error}
+          errors={error && error.errors}
+        />
       )}
 
-      {isSuccess && (
-        <div
-          style={{
-            color: 'red',
-            bottom: '15px',
-            fontSize: '17px',
-            width: '80%',
-            textAlign: 'center',
-            marginBottom: '20px',
-          }}
-        >
-          {response && response.message}
-        </div>
-      )}
+      {isSuccess && successFeedback(response && response.message)}
     </Container>
   );
 }

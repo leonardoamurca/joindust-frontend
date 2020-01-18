@@ -10,7 +10,6 @@ export const Container = styled.div`
 
 export const InputContainer = styled.div`
   width: 80%;
-  /* height: 62px; */
   display: flex;
   margin-top: 15px;
   flex-direction: column;
