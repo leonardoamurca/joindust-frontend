@@ -11,6 +11,21 @@ function handleUserResponse({ accessToken, error, ...rest }) {
   return rest;
 }
 
+function handleRegisterUser({
+  success,
+  message,
+  errors = null,
+  error = null,
+  field = null,
+  ...rest
+}) {
+  if (!success) {
+    return Promise.reject({ success, message, errors, error, field });
+  }
+
+  return { success, message };
+}
+
 function getUser() {
   const token = getToken();
   if (!token) {
@@ -38,4 +53,26 @@ function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
 
-export { login, logout, getToken, getUser };
+function register({
+  corporateName,
+  username,
+  email,
+  password,
+  cnpj,
+  phone,
+  roleId,
+}) {
+  return client('auth/signup', {
+    body: {
+      corporateName,
+      username,
+      email,
+      password,
+      cnpj,
+      phone,
+      roleId,
+    },
+  }).then(handleRegisterUser);
+}
+
+export { login, register, logout, getToken, getUser };
