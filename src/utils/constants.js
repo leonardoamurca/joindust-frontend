@@ -4,4 +4,12 @@ const ROLES = [
   { id: 2, name: 'Reciclador' },
 ];
 
-export { ROLES };
+function isProducer(roleId) {
+  return roleId === ROLES.filter(role => role.id === 1)[0].id;
+}
+
+function isRecycler(roleId) {
+  return roleId === ROLES.filter(role => role.id === 2)[0].id;
+}
+
+export { ROLES, isProducer, isRecycler };
