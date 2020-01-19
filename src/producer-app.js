@@ -1,22 +1,35 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
 
-import About from './screens/Producer/About';
 import NotFound from './utils/NotFound';
 import Home from './screens/Producer/Home';
+import NewCollect from './screens/Producer/NewCollect';
+import MyCollects from './screens/Producer/MyCollects';
+import Profile from './screens/Profile';
 
 function ProducerApp({ roleId }) {
   function RedirectHomeFromLogin() {
-    return <Redirect noThrow to={`/auth/${roleId}/about`} />;
+    return <Redirect noThrow to={`/auth/${roleId}/new-collect`} />;
   }
 
   return (
     <Router>
       <RedirectHomeFromLogin path="/login" />
       <Home path={`auth/${roleId}`}>
-        <About path="about" />
+        <NewCollect path="new-collect" />
+        <MyCollects path="my-collects" />
+        <Profile path="profile" />
+        <NotFound
+          default
+          path={`/auth/${roleId}/new-collect`}
+          screenName="about"
+        />
       </Home>
-      <NotFound default path={`/auth/${roleId}/about`} screenName="about" />
+      <NotFound
+        default
+        path={`/auth/${roleId}/new-collect`}
+        screenName="about"
+      />
     </Router>
   );
 }
