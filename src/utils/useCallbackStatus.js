@@ -40,7 +40,7 @@ function useCallbackStatus() {
       },
       error => {
         safeSetState({ status: 'rejected', error });
-        return Promise.reject(error);
+        return Promise.reject(error).catch(err => err);
       }
     );
   }
