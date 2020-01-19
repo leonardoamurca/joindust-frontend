@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from '@reach/router';
 import {
   Container,
   InputContainer,
