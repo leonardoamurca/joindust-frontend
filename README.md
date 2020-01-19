@@ -6,4 +6,4 @@ This project consumes a REST API from [joindust-backend](https://github.com/leon
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
