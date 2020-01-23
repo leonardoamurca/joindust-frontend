@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useProducer } from '../../context/producer';
+import CollectCard from '../../components/CollectCard';
+import { CollectsContainer, Container, Title } from './MyCollectsStyles';
 
 function MyCollects() {
   const producer = useProducer();
 
+  const onDeleteCollect = async id => {
+    await producer.deleteCollectById({ collectId: id });
+  };
+
   return (
-    <div>
-      <h1>My Collects</h1>
-      <ul>
-        {producer.collections.content.map(collect => (
-          <li key={collect.id}>
-            <div>Preço: R${collect.price}</div>
-            <div>Quantidade: {collect.quantity}</div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container>
+      <Title>Minhas Coletas</Title>
+      {/*TODO: Create Component CollectList to list all collects*/}
+      <CollectsContainer>
+        {producer.collections.content.length !== 0 ? (
+          producer.collections.content.map(collect => (
+            <CollectCard
+              key={collect.id}
+              id={collect.id}
+              quantity={collect.quantity}
+              price={collect.price}
+              user={collect.user}
+              onDelete={onDeleteCollect}
+            />
+          ))
+        ) : (
+          <div style={{ textAlign: 'center' }}>Não há coletas cadastradas!</div>
+        )}
+      </CollectsContainer>
+    </Container>
   );
 }
 
