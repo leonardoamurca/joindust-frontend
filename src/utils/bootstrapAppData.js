@@ -1,5 +1,5 @@
 import { getUser } from '../services/auth-client';
-import { readForUser } from '../services/collections-client';
+import { getCollectionsCreatedBy } from '../services/collections-client';
 
 async function bootstrapAppData() {
   const user = await getUser();
@@ -8,7 +8,8 @@ async function bootstrapAppData() {
     return { user: null, collections: [] };
   }
 
-  const { collections } = await readForUser(user.username);
+  const username = user.username;
+  const collections = await getCollectionsCreatedBy({ username });
   return {
     user,
     collections,
