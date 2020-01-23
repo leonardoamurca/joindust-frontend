@@ -13,9 +13,24 @@ function ProducerProvider(props) {
 
   const getCollectById = form => collectionsClient.getCollectById(form);
 
-  const deleteCollectById = form => collectionsClient.deleteCollectById(form).then(res => res).catch(err => err);
+  const deleteCollectById = form =>
+    collectionsClient
+      .deleteCollectById(form)
+      .then(res => res)
+      .catch(err => err);
 
-  return <ProducerContext.Provider value={{user, collections, createCollect, getCollectById, deleteCollectById}} {...props} />;
+  return (
+    <ProducerContext.Provider
+      value={{
+        user,
+        collections,
+        createCollect,
+        getCollectById,
+        deleteCollectById,
+      }}
+      {...props}
+    />
+  );
 }
 
 function useProducer() {

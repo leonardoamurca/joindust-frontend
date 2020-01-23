@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useProducer } from '../../context/producer';
 
 function MyCollects() {
   const producer = useProducer();
-
-  const deleteMe = () => {
-    return producer.deleteCollectById({collectId: 19}).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
 
   return (
     <div>
@@ -23,8 +15,6 @@ function MyCollects() {
           </li>
         ))}
       </ul>
-
-      <button onClick={deleteMe}>Delete me</button>
     </div>
   );
 }
