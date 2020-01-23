@@ -7,6 +7,7 @@ const ProducerContext = React.createContext();
 function ProducerProvider(props) {
   const {
     data: { user, collections },
+    reload,
   } = useAuth();
 
   const createCollect = form => collectionsClient.createCollect(form);
@@ -14,10 +15,10 @@ function ProducerProvider(props) {
   const getCollectById = form => collectionsClient.getCollectById(form);
 
   const deleteCollectById = form =>
-    collectionsClient
-      .deleteCollectById(form)
-      .then(res => res)
-      .catch(err => err);
+    collectionsClient.deleteCollectById(form).then(reload);
+
+  const getCollectionsCreatedBy = form =>
+    collectionsClient.getCollectionsCreatedBy(form);
 
   return (
     <ProducerContext.Provider
@@ -27,6 +28,7 @@ function ProducerProvider(props) {
         createCollect,
         getCollectById,
         deleteCollectById,
+        getCollectionsCreatedBy,
       }}
       {...props}
     />
