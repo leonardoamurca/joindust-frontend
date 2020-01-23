@@ -8,7 +8,8 @@ async function bootstrapAppData() {
     return { user: null, collections: [] };
   }
 
-  const collections = await getCollectionsCreatedBy(user.username);
+  const username = user.username;
+  const collections = await getCollectionsCreatedBy({ username });
   return {
     user,
     collections,
