@@ -49,7 +49,7 @@ function AuthProvider(props) {
 
   return (
     <AuthContext.Provider
-      value={{ data, login, logout, register }}
+      value={{ data, login, logout, register, reload }}
       {...props}
     />
   );
