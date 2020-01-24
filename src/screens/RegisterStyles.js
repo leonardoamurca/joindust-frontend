@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 50px;
+  padding-top: 40px;
 `;
 
 export const InputContainer = styled.div`
