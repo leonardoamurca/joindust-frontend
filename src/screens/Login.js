@@ -5,6 +5,7 @@ import { useAuth } from '../context/auth';
 import useCallbackStatus from '../utils/useCallbackStatus';
 
 import { Container, FormContainer } from './LoginStyles';
+import Logo from '../components/Logo';
 
 function Login() {
   const { login } = useAuth();
@@ -20,7 +21,7 @@ function Login() {
 
   return (
     <Container>
-      <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>LOGO</h1>
+      <Logo type="full-mobile" />
       <FormContainer>
         <Input
           size="large"

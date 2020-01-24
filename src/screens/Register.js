@@ -10,6 +10,7 @@ import { ROLES } from '../utils/constants';
 import { useAuth } from '../context/auth';
 import useCallbackStatus from '../utils/useCallbackStatus';
 import ErrorFeedback from '../components/ErrorFeedback';
+import Logo from '../components/Logo';
 
 const { Option } = Select;
 
@@ -58,7 +59,9 @@ function Register() {
   return (
     <Container>
       {/*TODO: Put real Register logo instead of the h1 below*/}
-      <h1 style={{ fontWeight: 'bold', textAlign: 'center' }}>REGISTER LOGO</h1>
+      {/* <h1 style={{ fontWeight: 'bold', textAlign: 'center' }}>REGISTER LOGO</h1> */}
+      <Logo type="onlyTree" />
+      <h1 style={{ fontWeight: 'bold', color: '#2C2C2D' }}>Cadastro</h1>
       <InputContainer>
         <InputLabel>Nome da empresa</InputLabel>
         <Input
