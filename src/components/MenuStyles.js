@@ -19,7 +19,7 @@ export const HamburgerMenuContainer = styled.div`
   top: 0;
   z-index: 200;
   background-color: #ffffff;
-  padding: 32px 16px;
+  padding-top: 32px;
   box-sizing: border-box;
   transition: transform 0.3s ease-out;
   transform: ${props =>
