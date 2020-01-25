@@ -49,7 +49,16 @@ function NewCollect() {
 
   return (
     <Container>
-      <h1>Cadastrar Coleta</h1>
+      <h1
+        style={{
+          color: '#2C2C2D',
+          marginTop: '20px',
+          fontWeight: 'bold',
+          fontSize: '35px',
+        }}
+      >
+        Cadastrar Coleta
+      </h1>
       <FormContainer>
         <InputContainer>
           <InputLabel>Preço (em R$)</InputLabel>

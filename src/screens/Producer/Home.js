@@ -10,9 +10,8 @@ function Home({ children }) {
   return (
     <>
       <Menu>
-        <div>
-          <NavLink to="new-collect">Criar Coleta</NavLink>
-        </div>
+        <NavLink to="new-collect">Criar Coleta</NavLink>
+
         <div>
           <NavLink to="my-collects">Minhas Coletas</NavLink>
         </div>
@@ -20,7 +19,7 @@ function Home({ children }) {
           <NavLink to="profile">Perfil</NavLink>
         </div>
 
-        <div style={{ position: 'absolute', bottom: '30px' }}>
+        <div style={{ position: 'absolute', bottom: '30px', left: '16px' }}>
           <Button icon="logout" onClick={auth.logout}>
             Sair
           </Button>

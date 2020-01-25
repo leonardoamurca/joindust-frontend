@@ -35,7 +35,6 @@ function useCallbackStatus() {
 
     return promise.then(
       response => {
-        console.log(response);
         safeSetState({ status: 'success', response });
         return response;
       },
