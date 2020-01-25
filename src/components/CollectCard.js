@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button } from 'antd';
+import { Card, Button, Popconfirm } from 'antd';
 import {
   Container,
   Quantity,
@@ -12,11 +12,18 @@ function CollectCard({ id, quantity, price, onDelete }) {
     <Container>
       <Card>
         <h1>#{id}</h1>
-        <Quantity>{quantity} litros</Quantity>
-        <Price>R${price},00</Price>
+        <Quantity>{quantity} kg</Quantity>
+        <Price>R${price}</Price>
         <ButtonContainer>
-          <Button onClick={() => onDelete(id)} type="danger">
-            Excluir
+          <Button type="danger">
+            <Popconfirm
+              title={`Tem certeza que deseja excluir a coleta ${id} ?`}
+              onConfirm={() => onDelete(id)}
+              okText="Sim"
+              cancelText="Não"
+            >
+              <a>Excluir</a>
+            </Popconfirm>
           </Button>
         </ButtonContainer>
       </Card>
