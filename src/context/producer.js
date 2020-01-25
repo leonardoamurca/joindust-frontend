@@ -14,8 +14,7 @@ function ProducerProvider(props) {
 
   const getCollectById = form => collectionsClient.getCollectById(form);
 
-  const deleteCollectById = form =>
-    collectionsClient.deleteCollectById(form).then(reload);
+  const deleteCollectById = form => collectionsClient.deleteCollectById(form);
 
   const getCollectionsCreatedBy = form =>
     collectionsClient.getCollectionsCreatedBy(form);

@@ -18,14 +18,8 @@ function deleteCollectById({ collectId }) {
   return deleteById('collections', { id: collectId }).then(handleDeleteCollect);
 }
 
-function handleCreateCollect({
-  success,
-  id: collectId,
-  message,
-  error = null,
-  ...rest
-}) {
-  if (!success || !collectId) {
+function handleCreateCollect({ success, message, error = null, ...rest }) {
+  if (!success) {
     return Promise.reject({ error, message, ...rest });
   }
 
@@ -33,7 +27,7 @@ function handleCreateCollect({
 }
 
 function handleDeleteCollect({ data: { collectId, message }, error, ...rest }) {
-  if (error) {
+  if (error || !collectId) {
     return Promise.reject({ error, ...rest });
   }
 

@@ -2,21 +2,44 @@ import React, { useEffect, useState } from 'react';
 import { useProducer } from '../../context/producer';
 import CollectCard from '../../components/CollectCard';
 import { CollectsContainer, Container, Title } from './MyCollectsStyles';
+import { Popconfirm, message } from 'antd';
 
 function MyCollects() {
   const producer = useProducer();
+  const [collections, setCollections] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchCollections() {
+      const res = await producer.getCollectionsCreatedBy({
+        username: producer.user.username,
+      });
+
+      if (typeof res.content !== 'undefined') {
+        setCollections(res);
+      } else {
+        setError(res);
+      }
+    }
+
+    fetchCollections();
+  }, []);
 
   const onDeleteCollect = async id => {
-    await producer.deleteCollectById({ collectId: id });
+    const res = await producer.deleteCollectById({ collectId: id });
+    if (res.collectId !== 'undefined') {
+      message.success(`Coleta ${id} excluída com sucesso!`);
+      const filtered = collections.content.filter(collect => collect.id !== id);
+      setCollections(prev => ({ ...prev, content: [...filtered] }));
+    }
   };
-
   return (
     <Container>
       <Title>Minhas Coletas</Title>
       {/*TODO: Create Component CollectList to list all collects*/}
       <CollectsContainer>
-        {producer.collections.content.length !== 0 ? (
-          producer.collections.content.map(collect => (
+        {collections.length !== 0 && collections.content.length !== 0 ? (
+          collections.content.map(collect => (
             <CollectCard
               key={collect.id}
               id={collect.id}
