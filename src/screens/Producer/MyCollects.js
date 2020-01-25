@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { message, Spin } from 'antd';
 import { useProducer } from '../../context/producer';
 import CollectCard from '../../components/CollectCard';
 import { CollectsContainer, Container, Title } from './MyCollectsStyles';
-import { Popconfirm, message } from 'antd';
+import useCallbackStatus from '../../utils/useCallbackStatus';
+import ErrorFeedback from '../../components/ErrorFeedback';
 
 function MyCollects() {
   const producer = useProducer();
   const [collections, setCollections] = useState([]);
-  const [error, setError] = useState(null);
+  const { isPending, isRejected, error, run } = useCallbackStatus();
 
   useEffect(() => {
-    async function fetchCollections() {
-      const res = await producer.getCollectionsCreatedBy({
+    run(
+      producer.getCollectionsCreatedBy({
         username: producer.user.username,
-      });
-
-      if (typeof res.content !== 'undefined') {
-        setCollections(res);
-      } else {
-        setError(res);
-      }
-    }
-
-    fetchCollections();
+      })
+    ).then(res => {
+      setCollections(res);
+    });
   }, []);
 
   const onDeleteCollect = async id => {
     const res = await producer.deleteCollectById({ collectId: id });
     if (res.collectId !== 'undefined') {
-      message.success(`Coleta ${id} excluída com sucesso!`);
       const filtered = collections.content.filter(collect => collect.id !== id);
+
+      message.success(`Coleta ${id} excluída com sucesso!`);
       setCollections(prev => ({ ...prev, content: [...filtered] }));
     }
   };
@@ -49,8 +46,17 @@ function MyCollects() {
               onDelete={onDeleteCollect}
             />
           ))
+        ) : isPending ? (
+          <Spin size="default" />
         ) : (
           <div style={{ textAlign: 'center' }}>Não há coletas cadastradas!</div>
+        )}
+        {isRejected && (
+          <ErrorFeedback
+            message={error && error.message}
+            errorType={error && error.error}
+            errors={error && error.errors}
+          />
         )}
       </CollectsContainer>
     </Container>

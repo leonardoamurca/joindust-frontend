@@ -12,9 +12,14 @@ function ProducerApp({ roleId }) {
     return <Redirect noThrow to={`/auth/${roleId}/new-collect`} />;
   }
 
+  function RedirectHomeFromSlash() {
+    return <Redirect noThrow to={`/auth/${roleId}/new-collect`} />;
+  }
+
   return (
     <Router>
       <RedirectHomeFromLogin path="/login" />
+      <RedirectHomeFromSlash path="/" />
       <Home path={`auth/${roleId}`}>
         <NewCollect path="new-collect" />
         <MyCollects path="my-collects" />
@@ -22,13 +27,13 @@ function ProducerApp({ roleId }) {
         <NotFound
           default
           path={`/auth/${roleId}/new-collect`}
-          screenName="about"
+          screenName="cadastro de coleta"
         />
       </Home>
       <NotFound
         default
         path={`/auth/${roleId}/new-collect`}
-        screenName="about"
+        screenName="cadastro de coleta"
       />
     </Router>
   );

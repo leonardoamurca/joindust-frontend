@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { StyledLink } from './NavLinkStyles';
 
 export default ({ partial = true, ...props }) => (
-  <Link
+  <StyledLink
     {...props}
     getProps={({ isCurrent, isPartiallyCurrent }) => {
       const isActive = partial ? isPartiallyCurrent : isCurrent;
       return {
         style: {
-          color: isActive ? 'red' : 'blue',
+          color: isActive ? 'white' : '#2C2C2D',
+          backgroundColor: isActive ? '#2C2C2D' : 'white',
         },
       };
     }}
