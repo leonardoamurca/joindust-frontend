@@ -3,12 +3,19 @@ import { useAuth } from '../../context/auth';
 import NavLink from '../../components/NavLink';
 import Menu from '../../components/Menu';
 import { Button } from 'antd';
+import Footer from '../../components/Footer';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  position: relative;
+  min-height: 100vh;
+`;
 
 function Home({ children }) {
   const auth = useAuth();
 
   return (
-    <>
+    <Container>
       <Menu>
         <NavLink to="new-collect">Criar Coleta</NavLink>
 
@@ -26,7 +33,8 @@ function Home({ children }) {
         </div>
       </Menu>
       {children}
-    </>
+      <Footer />
+    </Container>
   );
 }
 

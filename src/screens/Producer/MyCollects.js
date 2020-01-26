@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { message, Spin } from 'antd';
 import { useProducer } from '../../context/producer';
 import CollectCard from '../../components/CollectCard';
-import { CollectsContainer, Container, Title } from './MyCollectsStyles';
+import { CollectsContainer, Container } from './MyCollectsStyles';
 import useCallbackStatus from '../../utils/useCallbackStatus';
 import ErrorFeedback from '../../components/ErrorFeedback';
+import { PageTitle } from '../../components/PageTitle';
 
 function MyCollects() {
   const producer = useProducer();
@@ -32,7 +33,7 @@ function MyCollects() {
   };
   return (
     <Container>
-      <Title>Minhas Coletas</Title>
+      <PageTitle>Minhas Coletas</PageTitle>
       {/*TODO: Create Component CollectList to list all collects*/}
       <CollectsContainer>
         {collections.length !== 0 && collections.content.length !== 0 ? (
