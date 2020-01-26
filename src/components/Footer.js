@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Slogan } from './FooterStyles';
+import { Container } from './FooterStyles';
 import Logo from './Logo';
 
 function Footer() {

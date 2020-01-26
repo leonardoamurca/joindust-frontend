@@ -11,8 +11,3 @@ export const CollectsContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-
-export const Title = styled.h1`
-  font-size: 30px;
-  text-align: center;
-`;
