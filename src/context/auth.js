@@ -47,9 +47,11 @@ function AuthProvider(props) {
 
   const register = form => authClient.register(form);
 
+  const getUserProfile = form => authClient.getUserProfile(form);
+
   return (
     <AuthContext.Provider
-      value={{ data, login, logout, register, reload }}
+      value={{ data, login, logout, register, reload, getUserProfile }}
       {...props}
     />
   );

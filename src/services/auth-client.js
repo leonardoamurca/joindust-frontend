@@ -75,4 +75,8 @@ function register({
   }).then(handleRegisterUser);
 }
 
-export { login, register, logout, getToken, getUser };
+function getUserProfile({ username }) {
+  return client(`users/${username}`);
+}
+
+export { login, register, logout, getToken, getUser, getUserProfile };
