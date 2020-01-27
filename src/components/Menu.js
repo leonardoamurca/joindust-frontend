@@ -3,10 +3,12 @@ import {
   Container,
   HamburgerMenuContainer,
   BackdropContainer,
+  AvatarContainer,
 } from './MenuStyles';
 import Logo from './Logo';
 import isMobile from '../utils/isMobile';
-import { Button } from 'antd';
+import { Button, Avatar } from 'antd';
+import { useAuth } from '../context/auth';
 
 const Backdrop = ({ show, clicked }) =>
   show && <BackdropContainer onClick={clicked} />;
@@ -20,6 +22,9 @@ function Menu({ children }) {
         <>
           <Button
             onClick={() => setShowMenu(!showMenu)}
+            style={{
+              color: '#2C2C2D',
+            }}
             type="link"
             icon="menu"
             size="large"
@@ -27,6 +32,14 @@ function Menu({ children }) {
 
           <Backdrop show={showMenu} clicked={() => setShowMenu(false)} />
           <HamburgerMenuContainer isOpen={showMenu}>
+            <AvatarContainer>
+              <Avatar
+                // src={profile.profileImage}
+                shape="circle"
+                size={70}
+                icon="user"
+              />
+            </AvatarContainer>
             {children}
           </HamburgerMenuContainer>
         </>

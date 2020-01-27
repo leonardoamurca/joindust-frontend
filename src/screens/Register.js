@@ -146,6 +146,7 @@ function Register() {
       </InputContainer>
       <ButtonContainer>
         <Button
+          style={{ backgroundColor: '#2C2C2D', border: '#2C2C2D' }}
           block
           size="large"
           loading={isPending}

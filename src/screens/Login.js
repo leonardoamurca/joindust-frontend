@@ -43,6 +43,9 @@ function Login() {
         />
         <Button
           disabled={!isSubmitable}
+          style={{
+            backgroundColor: isSubmitable ? '#2C2C2D' : '#e8e8e8',
+          }}
           block
           size="large"
           loading={isPending}
