@@ -35,3 +35,9 @@ export const BackdropContainer = styled.div`
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
+
+export const AvatarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+`;

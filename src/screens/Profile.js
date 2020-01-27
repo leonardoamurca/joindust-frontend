@@ -28,8 +28,6 @@ function Profile() {
     });
   }, []);
 
-  console.log(profile);
-
   return (
     <Container>
       {profile ? (
