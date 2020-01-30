@@ -45,8 +45,12 @@ function Profile() {
             </CorporateRole>
           </CorporateContainer>
           <CollectsContainer>
-            <CollectsNumber>{profile.collectionsCount}</CollectsNumber>
-            <CollectsLabel>Coletas cadastradas</CollectsLabel>
+            {isProducer(profile.roles[0].id) && (
+              <>
+                <CollectsNumber>{profile.collectionsCount}</CollectsNumber>
+                <CollectsLabel>Coletas cadastradas</CollectsLabel>
+              </>
+            )}
           </CollectsContainer>
           <DataContainer>
             <DataItem>
