@@ -47,7 +47,9 @@ function MyContacts() {
         ) : isPending ? (
           <Spin size="default" />
         ) : (
-          <div style={{ textAlign: 'center' }}>Não há coletas cadastradas!</div>
+          <div style={{ textAlign: 'center' }}>
+            Não há contatos adicionados!
+          </div>
         )}
       </ContactsContainer>
     </Container>
