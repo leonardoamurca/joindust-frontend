@@ -7,7 +7,7 @@ const ProducerApp = React.lazy(() => import('./producer-app'));
 const RecyclerApp = React.lazy(() => import('./recycler-app'));
 
 function AuthenticatedApp() {
-  const user = useUser();
+  const { user } = useUser();
   const roleId = user.roles[0].id;
 
   return (

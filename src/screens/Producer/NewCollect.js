@@ -7,12 +7,12 @@ import {
   ButtonContainer,
 } from './NewCollectStyles';
 import { Input, Icon, Button, Modal, Alert } from 'antd';
-import { useProducer } from '../../context/producer';
 import useCallbackStatus from '../../utils/useCallbackStatus';
 import ErrorFeedback from '../../components/ErrorFeedback';
+import { useUser } from '../../context/user';
 
 function NewCollect() {
-  const producer = useProducer();
+  const producer = useUser();
   const {
     isPending,
     isRejected,

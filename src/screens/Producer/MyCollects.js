@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { message, Spin } from 'antd';
-import { useProducer } from '../../context/producer';
 import CollectCard from '../../components/CollectCard';
 import { CollectsContainer, Container } from './MyCollectsStyles';
 import useCallbackStatus from '../../utils/useCallbackStatus';
 import ErrorFeedback from '../../components/ErrorFeedback';
 import { PageTitle } from '../../components/PageTitle';
+import { useUser } from '../../context/user';
 
 function MyCollects() {
-  const producer = useProducer();
+  const producer = useUser();
   const [collections, setCollections] = useState([]);
   const { isPending, isRejected, error, run } = useCallbackStatus();
 
