@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from './auth';
 import { isProducer, isRecycler } from '../utils/constants';
 import * as collectionsClient from '../services/collections-client';
+import * as contactClient from '../services/contacts-client';
 
 const UserContext = React.createContext();
 
@@ -29,6 +30,10 @@ function UserProvider(props) {
 
   const getAllCollections = () => collectionsClient.getAllCollections();
 
+  const getContacts = () => contactClient.getContacts();
+
+  const deleteContactById = form => contactClient.deleteContactById(form);
+
   if (user && isProducer(user.roles[0].id)) {
     return (
       <ProducerProvider
@@ -44,7 +49,12 @@ function UserProvider(props) {
       />
     );
   } else if (user && isRecycler(user.roles[0].id)) {
-    return <RecyclerProvider value={{ user, getAllCollections }} {...props} />;
+    return (
+      <RecyclerProvider
+        value={{ user, getAllCollections, getContacts, deleteContactById }}
+        {...props}
+      />
+    );
   } else {
     return <UserContext.Provider value={user} {...props} />;
   }
