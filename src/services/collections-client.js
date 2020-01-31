@@ -8,6 +8,10 @@ function getCollectById({ collectId }) {
   return client(`collections/${collectId}`);
 }
 
+function getAllCollections({ page = 0, size = 20 }) {
+  return client(`/collections?page=${page}&size=${size}`);
+}
+
 function createCollect({ price, quantity, userId }) {
   return client('collections', { body: { price, quantity, userId } }).then(
     handleCreateCollect
@@ -39,4 +43,5 @@ export {
   createCollect,
   getCollectById,
   deleteCollectById,
+  getAllCollections,
 };
