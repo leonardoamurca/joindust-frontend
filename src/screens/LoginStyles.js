@@ -3,10 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   position: static;
-  padding-top: 60px;
+  padding-top: 20px;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
 `;
 
 export const FormContainer = styled.div`

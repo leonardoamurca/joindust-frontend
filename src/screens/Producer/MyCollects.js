@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { message, Spin } from 'antd';
+
 import CollectCard from '../../components/CollectCard';
-import { CollectsContainer, Container } from './MyCollectsStyles';
-import useCallbackStatus from '../../utils/useCallbackStatus';
 import ErrorFeedback from '../../components/ErrorFeedback';
+import useCallbackStatus from '../../utils/useCallbackStatus';
 import { PageTitle } from '../../components/PageTitle';
 import { useUser } from '../../context/user';
+import {
+  CollectsContainer,
+  Container,
+  EmptyCollections,
+} from './MyCollectsStyles';
 
 function MyCollects() {
   const producer = useUser();
@@ -50,13 +55,13 @@ function MyCollects() {
         ) : isPending ? (
           <Spin size="default" />
         ) : (
-          <div style={{ textAlign: 'center' }}>Não há coletas cadastradas!</div>
+          <EmptyCollections>Não há coletas cadastradas!</EmptyCollections>
         )}
-        {isRejected && (
+        {isRejected && error && (
           <ErrorFeedback
-            message={error && error.message}
-            errorType={error && error.error}
-            errors={error && error.errors}
+            message={error.message}
+            errorType={error.error}
+            errors={error.errors}
           />
         )}
       </CollectsContainer>

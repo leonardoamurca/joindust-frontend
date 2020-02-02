@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Spin, message } from 'antd';
+
+import ContactCard from '../../components/ContactCard';
+import { PageTitle } from '../../components/PageTitle';
 import useCallbackStatus from '../../utils/useCallbackStatus';
 import { useUser } from '../../context/user';
-import { Container } from './MyContactsStyles';
-import { PageTitle } from '../../components/PageTitle';
-import { ContactsContainer } from './MyContactsStyles';
-import { Spin, message } from 'antd';
-import ContactCard from '../../components/ContactCard';
+import {
+  Container,
+  EmptyContacts,
+  ContactsContainer,
+} from './MyContactsStyles';
 
 function MyContacts() {
   const recycler = useUser();
@@ -47,7 +51,7 @@ function MyContacts() {
         ) : isPending ? (
           <Spin size="default" />
         ) : (
-          <div style={{ textAlign: 'center' }}>Não há coletas cadastradas!</div>
+          <EmptyContacts>Não há contatos adicionados!</EmptyContacts>
         )}
       </ContactsContainer>
     </Container>

@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState, useLayoutEffect, useContext } from 'react';
 import { useAsync } from 'react-async';
 
+import FullPageSpinner from '../components/FullPageSpinner';
+import UnhandledError from '../components/UnhandledError';
 import * as authClient from '../services/auth-client';
 import { bootstrapAppData } from '../utils/bootstrapAppData';
-import FullPageSpinner from '../components/FullPageSpinner';
 
 const AuthContext = React.createContext();
 
 function AuthProvider(props) {
-  const [firstAttemptFinished, setFirstAttemptFinished] = React.useState(false);
+  const [firstAttemptFinished, setFirstAttemptFinished] = useState(false);
   const {
-    data = { user: null, collections: [] },
+    data = { user: null },
     error,
     isRejected,
     isPending,
@@ -20,7 +21,7 @@ function AuthProvider(props) {
     promiseFn: bootstrapAppData,
   });
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (isSettled) {
       setFirstAttemptFinished(true);
     }
@@ -31,12 +32,7 @@ function AuthProvider(props) {
       return <FullPageSpinner />;
     }
     if (isRejected) {
-      return (
-        <div css={{ color: 'red' }}>
-          <p>Uh oh... There's a problem. Try refreshing the app.</p>
-          <pre>{error.message}</pre>
-        </div>
-      );
+      return <UnhandledError error={error} />;
     }
   }
 
@@ -58,7 +54,7 @@ function AuthProvider(props) {
 }
 
 function useAuth() {
-  const context = React.useContext(AuthContext);
+  const context = useContext(AuthContext);
 
   return context;
 }

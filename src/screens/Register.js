@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import { Input, Select, Button, Modal } from 'antd';
+
+import ErrorFeedback from '../components/ErrorFeedback';
+import Logo from '../components/Logo';
+import { ROLES } from '../utils/constants';
+import useCallbackStatus from '../utils/useCallbackStatus';
+import { useAuth } from '../context/auth';
 import {
   Container,
   InputContainer,
   InputLabel,
   ButtonContainer,
 } from './RegisterStyles';
-import { Input, Select, Button, Modal } from 'antd';
-import { ROLES } from '../utils/constants';
-import { useAuth } from '../context/auth';
-import useCallbackStatus from '../utils/useCallbackStatus';
-import ErrorFeedback from '../components/ErrorFeedback';
-import Logo from '../components/Logo';
 
 const { Option } = Select;
 
@@ -58,8 +59,6 @@ function Register() {
 
   return (
     <Container>
-      {/*TODO: Put real Register logo instead of the h1 below*/}
-      {/* <h1 style={{ fontWeight: 'bold', textAlign: 'center' }}>REGISTER LOGO</h1> */}
       <Logo type="onlyTree" />
       <h1 style={{ fontWeight: 'bold', color: '#2C2C2D' }}>Cadastro</h1>
       <InputContainer>
@@ -161,11 +160,11 @@ function Register() {
         Já possui uma conta? Faça <a href="/login">Login</a> agora!
       </div>
 
-      {isRejected && (
+      {isRejected && error && (
         <ErrorFeedback
-          message={error && error.message}
-          errorType={error && error.error}
-          errors={error && error.errors}
+          message={error.message}
+          errorType={error.error}
+          errors={error.errors}
         />
       )}
 

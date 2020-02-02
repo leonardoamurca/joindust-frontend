@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
+
 import NotFound from './utils/NotFound';
 import Home from './screens/Recycler/Home';
 import Profile from './screens/Profile';
@@ -11,9 +12,14 @@ function RecyclerApp({ roleId }) {
     return <Redirect noThrow to={`/auth/${roleId}/all-collects`} />;
   }
 
+  function RedirectHomeFromSlash() {
+    return <Redirect noThrow to={`/auth/${roleId}/all-collects`} />;
+  }
+
   return (
     <Router>
       <RedirectHomeFromLogin path="/login" />
+      <RedirectHomeFromSlash path="/" />
       <Home path={`auth/${roleId}`}>
         <AllCollects path="all-collects" />
         <MyContacts path="my-contacts" />
@@ -21,13 +27,13 @@ function RecyclerApp({ roleId }) {
         <NotFound
           default
           path={`/auth/${roleId}/all-collects`}
-          screenName="news"
+          screenName="Todas as coletas"
         />
       </Home>
       <NotFound
         default
         path={`/auth/${roleId}/all-collects`}
-        screenName="news"
+        screenName="Todas as coletas"
       />
     </Router>
   );
