@@ -16,4 +16,16 @@ function handleDeleteContact({ data: { collectId, message }, error, ...rest }) {
   return { collectId, message };
 }
 
-export { getContacts, deleteContactById };
+function createContact({ userId }) {
+  return client('contacts', { body: { userId } }).then(handleCreateContact);
+}
+
+function handleCreateContact({ success, message, error = null, ...rest }) {
+  if (!success) {
+    return Promise.reject({ error, message, ...rest });
+  }
+
+  return { success, message };
+}
+
+export { getContacts, deleteContactById, createContact };

@@ -34,6 +34,8 @@ function UserProvider(props) {
 
   const deleteContactById = form => contactClient.deleteContactById(form);
 
+  const createContact = form => contactClient.createContact(form);
+
   if (user && isProducer(user.roles[0].id)) {
     return (
       <ProducerProvider
@@ -51,7 +53,13 @@ function UserProvider(props) {
   } else if (user && isRecycler(user.roles[0].id)) {
     return (
       <RecyclerProvider
-        value={{ user, getAllCollections, getContacts, deleteContactById }}
+        value={{
+          user,
+          getAllCollections,
+          getContacts,
+          deleteContactById,
+          createContact,
+        }}
         {...props}
       />
     );

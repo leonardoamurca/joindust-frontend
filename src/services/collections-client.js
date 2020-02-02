@@ -8,8 +8,8 @@ function getCollectById({ collectId }) {
   return client(`collections/${collectId}`);
 }
 
-function getAllCollections({ page = 0, size = 20 }) {
-  return client(`/collections?page=${page}&size=${size}`);
+function getAllCollections(page = 0, size = 20) {
+  return client(`collections?page=${page}&size=${size}`);
 }
 
 function createCollect({ price, quantity, userId }) {
