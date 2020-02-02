@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
+
 import Login from './screens/Login';
 import NotFound from './utils/NotFound';
 import Register from './screens/Register';

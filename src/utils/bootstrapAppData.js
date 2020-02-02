@@ -5,11 +5,12 @@ async function bootstrapAppData() {
   const user = await getUser();
 
   if (!user) {
-    return { user: null, collections: [] };
+    return { user: null };
   }
 
   const username = user.username;
   const collections = await getCollectionsCreatedBy({ username });
+
   return {
     user,
     collections,

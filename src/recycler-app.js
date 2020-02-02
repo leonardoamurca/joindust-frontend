@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
+
 import NotFound from './utils/NotFound';
 import Home from './screens/Recycler/Home';
 import Profile from './screens/Profile';

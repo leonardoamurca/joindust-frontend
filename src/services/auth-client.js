@@ -28,6 +28,7 @@ function handleRegisterUser({
 
 function getUser() {
   const token = getToken();
+
   if (!token) {
     return Promise.resolve(null);
   }

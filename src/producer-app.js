@@ -18,7 +18,7 @@ function ProducerApp({ roleId }) {
 
   return (
     <Router>
-      <RedirectHomeFromLogin path="/login" />
+      <RedirectHomeFromLogin path="login" />
       <RedirectHomeFromSlash path="/" />
       <Home path={`auth/${roleId}`}>
         <NewCollect path="new-collect" />
@@ -26,13 +26,13 @@ function ProducerApp({ roleId }) {
         <Profile path="profile" />
         <NotFound
           default
-          path={`/auth/${roleId}/new-collect`}
+          path={`auth/${roleId}/new-collect`}
           screenName="cadastro de coleta"
         />
       </Home>
       <NotFound
         default
-        path={`/auth/${roleId}/new-collect`}
+        path={`auth/${roleId}/new-collect`}
         screenName="cadastro de coleta"
       />
     </Router>

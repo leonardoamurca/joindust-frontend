@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useUser } from './context/user';
 import FullPageSpinner from './components/FullPageSpinner';
 
-const AuthenticatedApp = React.lazy(() => import('./authenticated-app'));
-const UnauthenticatedApp = React.lazy(() => import('./unauthenticated-app'));
+const AuthenticatedApp = lazy(() => import('./authenticated-app'));
+const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'));
 
 function App() {
-  const user = useUser();
+  const { user } = useUser();
 
   return (
-    <React.Suspense fallback={<FullPageSpinner />}>
+    <Suspense fallback={<FullPageSpinner />}>
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-    </React.Suspense>
+    </Suspense>
   );
 }
 
