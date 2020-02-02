@@ -11,3 +11,7 @@ export const ContactsContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+export const EmptyContacts = styled.div`
+  text-align: center;
+`;

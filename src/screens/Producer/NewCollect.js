@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { Input, Icon, Button, Alert } from 'antd';
+
+import useCallbackStatus from '../../utils/useCallbackStatus';
+import { useUser } from '../../context/user';
 import {
   FormContainer,
   Container,
@@ -6,10 +10,6 @@ import {
   InputLabel,
   ButtonContainer,
 } from './NewCollectStyles';
-import { Input, Icon, Button, Modal, Alert } from 'antd';
-import useCallbackStatus from '../../utils/useCallbackStatus';
-import ErrorFeedback from '../../components/ErrorFeedback';
-import { useUser } from '../../context/user';
 
 function NewCollect() {
   const producer = useUser();
@@ -39,12 +39,6 @@ function NewCollect() {
 
   const onCreateCollect = () => {
     isSubmitable && run(producer.createCollect(form));
-  };
-
-  const successFeedback = message => {
-    Modal.success({
-      content: message,
-    });
   };
 
   return (

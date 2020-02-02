@@ -11,26 +11,26 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
+const LogoutButtonContainer = styled.div`
+  position: absolute;
+  bottom: 30px;
+  left: 16px;
+`;
+
 function Home({ children }) {
-  const auth = useAuth();
+  const { logout } = useAuth();
 
   return (
     <Container>
       <Menu>
         <NavLink to="new-collect">Criar Coleta</NavLink>
-
-        <div>
-          <NavLink to="my-collects">Minhas Coletas</NavLink>
-        </div>
-        <div>
-          <NavLink to="profile">Perfil</NavLink>
-        </div>
-
-        <div style={{ position: 'absolute', bottom: '30px', left: '16px' }}>
-          <Button icon="logout" onClick={auth.logout}>
+        <NavLink to="my-collects">Minhas Coletas</NavLink>
+        <NavLink to="profile">Perfil</NavLink>
+        <LogoutButtonContainer>
+          <Button icon="logout" onClick={logout}>
             Sair
           </Button>
-        </div>
+        </LogoutButtonContainer>
       </Menu>
       {children}
       <Footer />

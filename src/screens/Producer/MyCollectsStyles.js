@@ -11,3 +11,7 @@ export const CollectsContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+export const EmptyCollections = styled.div`
+  text-align: center;
+`;
