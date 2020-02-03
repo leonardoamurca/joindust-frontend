@@ -23,8 +23,7 @@ function MyContacts() {
   }, []);
 
   const onDeleteContact = async (id, corporateName) => {
-    // TODO: Change collectId to contactId in the backend
-    const res = await recycler.deleteContactById({ collectId: id });
+    const res = await recycler.deleteContactById({ contactId: id });
     if (res.collectId !== 'undefined') {
       const filtered = contacts.content.filter(contact => contact.id !== id);
 
