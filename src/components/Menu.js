@@ -9,12 +9,14 @@ import Logo from './Logo';
 import isMobile from '../utils/isMobile';
 import { Button, Avatar } from 'antd';
 import { useAuth } from '../context/auth';
+import { useUser } from '../context/user';
 
 const Backdrop = ({ show, clicked }) =>
   show && <BackdropContainer onClick={clicked} />;
 
 function Menu({ children }) {
   const [showMenu, setShowMenu] = useState(false);
+  const { user } = useUser();
 
   const renderMenu = () => {
     if (isMobile()) {
@@ -34,7 +36,7 @@ function Menu({ children }) {
           <HamburgerMenuContainer isOpen={showMenu}>
             <AvatarContainer>
               <Avatar
-                // src={profile.profileImage}
+                src={user.profileImage}
                 shape="circle"
                 size={70}
                 icon="user"

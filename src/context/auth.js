@@ -45,9 +45,19 @@ function AuthProvider(props) {
 
   const getUserProfile = form => authClient.getUserProfile(form);
 
+  const updateProfileImage = form => authClient.updateProfileImage(form);
+
   return (
     <AuthContext.Provider
-      value={{ data, login, logout, register, reload, getUserProfile }}
+      value={{
+        data,
+        login,
+        logout,
+        register,
+        reload,
+        getUserProfile,
+        updateProfileImage,
+      }}
       {...props}
     />
   );

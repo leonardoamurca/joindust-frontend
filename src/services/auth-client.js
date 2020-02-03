@@ -1,4 +1,4 @@
-import client from './api-client';
+import client, { patchColumn, clientImageProvider } from './api-client';
 
 const localStorageKey = '$TOKEN';
 
@@ -80,4 +80,35 @@ function getUserProfile({ username }) {
   return client(`users/${username}`);
 }
 
-export { login, register, logout, getToken, getUser, getUserProfile };
+function updateProfileImage({ profileImage }) {
+  return patchColumn('users/image', { body: { profileImage } });
+}
+
+function uploadImage({ profileImage }) {
+  return clientImageProvider('3/image', { body: ['image', profileImage] }).then(
+    handleUploadImageReponse
+  );
+}
+
+function handleUploadImageReponse({
+  success,
+  data: { link, error = null, method = null },
+  ...rest
+}) {
+  if (!success) {
+    return Promise.reject({ error, method, ...rest });
+  }
+
+  return { success, link };
+}
+
+export {
+  login,
+  register,
+  logout,
+  getToken,
+  getUser,
+  getUserProfile,
+  updateProfileImage,
+  uploadImage,
+};

@@ -101,7 +101,7 @@ function AllCollects() {
           <ModalContainer>
             <CorporateContainer>
               <Avatar
-                //src={profile.profileImage}
+                src={currentUser.profileImage}
                 shape="circle"
                 size={80}
                 icon="user"
@@ -115,7 +115,7 @@ function AllCollects() {
               </DataItem>
               <DataItem>
                 <DataLabel>Telefone: </DataLabel>
-                <Data>{currentUser.username}</Data>
+                <Data>{currentUser.phone}</Data>
               </DataItem>
             </DataContainer>
             {successFeedback && (

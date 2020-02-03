@@ -4,16 +4,16 @@ function getContacts(page = 0, size = 20) {
   return client(`contacts?page=${page}&size=${size}`);
 }
 
-function deleteContactById({ collectId }) {
-  return deleteById('contacts', { id: collectId }).then(handleDeleteContact);
+function deleteContactById({ contactId }) {
+  return deleteById('contacts', { id: contactId }).then(handleDeleteContact);
 }
 
-function handleDeleteContact({ data: { collectId, message }, error, ...rest }) {
-  if (error || !collectId) {
+function handleDeleteContact({ data: { contactId, message }, error, ...rest }) {
+  if (error || !contactId) {
     return Promise.reject({ error, ...rest });
   }
 
-  return { collectId, message };
+  return { contactId, message };
 }
 
 function createContact({ userId }) {

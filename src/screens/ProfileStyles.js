@@ -71,3 +71,9 @@ export const DataLabel = styled.span`
 export const Data = styled.span`
   font-size: 17px;
 `;
+
+export const AvatarContainer = styled.div`
+  position: relative;
+  width: 100px;
+  height: 100px;
+`;
