@@ -92,12 +92,11 @@ function uploadImage({ profileImage }) {
 
 function handleUploadImageReponse({
   success,
-  data: { link },
-  error = null,
+  data: { link, error = null, method = null },
   ...rest
 }) {
   if (!success) {
-    return Promise.reject({ error, ...rest });
+    return Promise.reject({ error, method, ...rest });
   }
 
   return { success, link };

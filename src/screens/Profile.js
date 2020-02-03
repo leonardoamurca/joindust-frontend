@@ -23,11 +23,13 @@ import { isProducer } from '../utils/constants';
 import { uploadImage } from '../services/auth-client';
 import toBase64 from '../utils/toBase64';
 import compressImage from '../utils/compressImage';
+import ErrorFeedback from '../components/ErrorFeedback';
 
 function Profile() {
   const auth = useAuth();
   const [profile, setProfile] = useState(null);
   const [successFeedback, setSuccessFeedback] = useState(null);
+  const [errorFeedback, setErrorFeedback] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = createRef();
 
@@ -42,6 +44,8 @@ function Profile() {
   };
 
   const onChangeProfileImage = async e => {
+    setErrorFeedback(null);
+    setSuccessFeedback(null);
     const file = e.target.files[0];
 
     try {
@@ -69,12 +73,16 @@ function Profile() {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      setErrorFeedback(error);
     }
   };
 
   const renderSuccessFeedback = () => {
     return message.success(successFeedback.data.message);
+  };
+
+  const renderErrorFeedback = () => {
+    return message.error(errorFeedback.method + ' ' + errorFeedback.status);
   };
 
   return (
@@ -142,6 +150,7 @@ function Profile() {
       ) : (
         <Spin />
       )}
+      {errorFeedback && renderErrorFeedback()}
     </Container>
   );
 }
