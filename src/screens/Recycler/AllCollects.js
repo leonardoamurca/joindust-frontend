@@ -101,7 +101,7 @@ function AllCollects() {
           <ModalContainer>
             <CorporateContainer>
               <Avatar
-                //src={profile.profileImage}
+                src={currentUser.profileImage}
                 shape="circle"
                 size={80}
                 icon="user"
